@@ -20,6 +20,14 @@ test "usize stack structure" {
     try stack.push(30);
     try stack.push(40);
     assert(stack.is_empty() == false);
+
+    const slice = try stack.toOwned();
+    if (slice) |s| {
+        defer allocator.free(s);
+
+        const expected_slice = &[_]usize{ 10, 30, 40 };
+        try std.testing.expectEqualSlices(usize, s, expected_slice);
+    }
 }
 
 test "u8 stack structure" {
@@ -40,4 +48,12 @@ test "u8 stack structure" {
     try stack.push('c');
     try stack.push('d');
     assert(stack.is_empty() == false);
+
+    const slice = try stack.toOwned();
+    if (slice) |s| {
+        defer allocator.free(s);
+
+        const expected_slice = &[_]u8{ 'a', 'c', 'd' };
+        try std.testing.expectEqualSlices(u8, s, expected_slice);
+    }
 }
