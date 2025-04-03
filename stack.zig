@@ -57,9 +57,9 @@ pub fn Stack(comptime T: type) type {
         pub fn toOwned(self: Self) Error!?[]T {
             if (self.top > 0) {
                 const items = self.buffer[0..self.top];
-                if (self.allocator.alloc(T, items.len)) |newT| {
-                    std.mem.copyForwards(T, newT, items);
-                    return newT;
+                if (self.allocator.alloc(T, items.len)) |slice_Ts| {
+                    std.mem.copyForwards(T, slice_Ts, items);
+                    return slice_Ts;
                 } else |_| {
                     return Error.OutOfMemory;
                 }
