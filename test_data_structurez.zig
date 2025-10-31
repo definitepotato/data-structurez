@@ -1,10 +1,10 @@
 const std = @import("std");
-const DataStructures = @import("data_structurez.zig");
+const ds = @import("data_structurez.zig");
 
 test "linked list" {
     const allocator = std.testing.allocator;
 
-    var list = DataStructures.LinkedList(usize).init(allocator);
+    var list = ds.LinkedList(usize).init(allocator);
     defer list.deinit();
 
     try list.prepend(10);
@@ -28,7 +28,7 @@ test "matrix 3x5 from text" {
 
     const allocator = std.testing.allocator;
 
-    var matrix = try DataStructures.Matrix(u8).initFromText(allocator, test_input);
+    var matrix = try ds.Matrix(u8).initFromText(allocator, test_input);
     defer matrix.deinit();
 
     try std.testing.expectEqual(matrix.height, 3);
@@ -43,7 +43,7 @@ test "matrix 3x5 from text" {
 test "matrix 3x5 from file" {
     const allocator = std.testing.allocator;
 
-    var matrix = try DataStructures.Matrix(u8).initFromFile(allocator, "matrix_input.txt");
+    var matrix = try ds.Matrix(u8).initFromFile(allocator, "matrix_input.txt");
     defer matrix.deinit();
 
     try std.testing.expectEqual(matrix.height, 3);
@@ -58,7 +58,7 @@ test "matrix 3x5 from file" {
 test "queue usize" {
     const allocator = std.testing.allocator;
 
-    var queue = DataStructures.Queue(usize).init(allocator);
+    var queue = ds.Queue(usize).init(allocator);
     defer queue.deinit();
 
     std.debug.assert(queue.is_empty());
@@ -78,7 +78,7 @@ test "queue usize" {
 test "queue u8" {
     const allocator = std.testing.allocator;
 
-    var queue = DataStructures.Queue(u8).init(allocator);
+    var queue = ds.Queue(u8).init(allocator);
     defer queue.deinit();
 
     std.debug.assert(queue.is_empty());
@@ -98,7 +98,7 @@ test "queue u8" {
 test "slice iterator" {
     const allocator = std.testing.allocator;
 
-    var slice = DataStructures.Slice(u32).init(allocator);
+    var slice = ds.Slice(u32).init(allocator);
     defer slice.deinit();
 
     try slice.append(10);
@@ -118,7 +118,7 @@ test "slice iterator" {
 test "stack usize" {
     const allocator = std.testing.allocator;
 
-    var stack = DataStructures.Stack(usize).init(allocator);
+    var stack = ds.Stack(usize).init(allocator);
     defer stack.deinit();
 
     std.debug.assert(stack.is_empty());
@@ -146,7 +146,7 @@ test "stack usize" {
 test "stack u8" {
     const allocator = std.testing.allocator;
 
-    var stack = DataStructures.Stack(u8).init(allocator);
+    var stack = ds.Stack(u8).init(allocator);
     defer stack.deinit();
 
     std.debug.assert(stack.is_empty());

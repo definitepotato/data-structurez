@@ -14,17 +14,17 @@ A tiny library of data structures written in pure Zig. Use for learning and expe
 
 ## How To Use It
 
-Drop the `data-structurez.zig` file in your project and import like `std DataStructures = @import("data-structurez.zig")`
+Drop the `data-structurez.zig` file in your project and import like `std ds = @import("data-structurez.zig")`
 
 ### Linked List
 
 ```zig
 const std = @import("std");
-const DataStructures = @import("data-structurez.zig")
+const ds = @import("data-structurez.zig")
 
 const allocator = std.heap.page_allocator;
 
-var list = DataStructures.LinkedList(usize).init(allocator);
+var list = ds.LinkedList(usize).init(allocator);
 defer list.deinit();
 
 try list.prepend(10);
@@ -38,7 +38,7 @@ list.print();
 
 ```zig
 const std = @import("std");
-const DataStructures = @import("data_structurez.zig");
+const ds = @import("data_structurez.zig");
 
 const input_test =
     \\MMMSXXMASM
@@ -56,7 +56,7 @@ const input_test =
 pub fn main() !void {
     const allocator = std.heap.page_allocator;
 
-    var matrix = try DataStructures.Matrix(u8).initFromText(allocator, input_test);
+    var matrix = try ds.Matrix(u8).initFromText(allocator, input_test);
     defer matrix.deinit();
 
     for (0..matrix.height) |y| {
@@ -95,11 +95,11 @@ pub fn main() !void {
 
 ```zig
 const std = @import("std");
-const DataStructures = @import("data-structurez.zig")
+const ds = @import("data-structurez.zig")
 
 const allocator = std.heap.page_allocator;
 
-var queue = DataStructures.Queue(u8).init(allocator);
+var queue = ds.Queue(u8).init(allocator);
 defer queue.deinit();
 
 try queue.enqueue('a');
@@ -113,11 +113,11 @@ std.debug.print("{c}\n", .{next});
 
 ```zig
 const std = @import("std");
-const DataStructures = @import("data-structurez.zig")
+const ds = @import("data-structurez.zig")
 
 const allocator = std.heap.page_allocator;
 
-var stack = DataStructures.Stack(u8).init(allocator);
+var stack = ds.Stack(u8).init(allocator);
 defer stack.deinit();
 
 try stack.push('a');
@@ -132,11 +132,11 @@ std.debug.print("{}\n", .{stack.is_empty()});
 
 ```zig
 const std = @import("std");
-const DataStructures = @import("data-structurez.zig")
+const ds = @import("data-structurez.zig")
 
 const allocator = std.heap.page_allocator;
 
-var slice = DataStructures.Slice(u32).init(allocator);
+var slice = ds.Slice(u32).init(allocator);
 try slice.append(10);
 try slice.append(20);
 try slice.append(30);
