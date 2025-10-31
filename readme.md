@@ -146,10 +146,18 @@ try slice.append(30);
 try slice.append(40);
 try slice.append(50);
 
-std.debug.print("{d}\n", .{slice.len});
+std.debug.print("Len: {d}\n", .{slice.len});
 
 var it = slice.iterator();
 while (it.next()) |item| {
     std.debug.print("{d}\n", .{item});
 }
+
+// Output:
+// Len: 5
+// 10
+// 20
+// 30
+// 40
+// 50
 ```
