@@ -4,7 +4,7 @@ pub fn Matrix(comptime T: type) type {
     return struct {
         width: usize,
         height: usize,
-        data: []T,
+        buffer: []T,
 
         const Self = @This();
 
@@ -12,7 +12,7 @@ pub fn Matrix(comptime T: type) type {
             return .{
                 .width = width,
                 .height = height,
-                .data = try allocator.alloc(T, width * height),
+                .buffer = try allocator.alloc(T, width * height),
             };
         }
 
@@ -35,7 +35,7 @@ pub fn Matrix(comptime T: type) type {
                 height += 1;
             }
 
-            // Second pass: fill the data.
+            // Second pass: fill the buffer.
             lines = std.mem.splitScalar(u8, std.mem.trim(u8, contents, "\r\n"), '\n'); // Reset the iterator.
             var matrix = try Matrix(u8).init(allocator, width, height);
 
@@ -64,7 +64,7 @@ pub fn Matrix(comptime T: type) type {
                 height += 1;
             }
 
-            // Second pass: fill the data.
+            // Second pass: fill the buffer.
             lines = std.mem.splitScalar(u8, trimmed, '\n'); // Reset the iterator.
             var matrix = try Matrix(u8).init(allocator, width, height);
 
@@ -79,15 +79,15 @@ pub fn Matrix(comptime T: type) type {
         }
 
         pub fn deinit(self: *Self, allocator: std.mem.Allocator) void {
-            allocator.free(self.data);
+            allocator.free(self.buffer);
         }
 
         pub fn get(self: *const Self, x: usize, y: usize) T {
-            return self.data[y * self.width + x];
+            return self.buffer[y * self.width + x];
         }
 
         pub fn set(self: *Self, x: usize, y: usize, value: T) void {
-            self.data[y * self.width + x] = value;
+            self.buffer[y * self.width + x] = value;
         }
 
         pub fn print(self: *Self) void {
