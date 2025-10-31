@@ -32,6 +32,9 @@ try list.prepend(20);
 try list.prepend(30);
 
 list.print();
+
+// Output:
+// 30 -> 20 -> 10 -> null
 ```
 
 ### Matrix
