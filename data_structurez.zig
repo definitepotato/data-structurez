@@ -74,6 +74,7 @@ pub fn LinkedList(comptime T: type) type {
 
 pub fn Matrix(comptime T: type) type {
     return struct {
+        allocator: std.mem.Allocator,
         width: usize,
         height: usize,
         buffer: []T,
@@ -81,10 +82,13 @@ pub fn Matrix(comptime T: type) type {
         const Self = @This();
 
         pub fn init(allocator: std.mem.Allocator, width: usize, height: usize) !Self {
+            const buffer = try allocator.alloc(T, width * height);
+
             return .{
                 .width = width,
                 .height = height,
-                .buffer = try allocator.alloc(T, width * height),
+                .buffer = buffer,
+                .allocator = allocator,
             };
         }
 
@@ -150,8 +154,8 @@ pub fn Matrix(comptime T: type) type {
             return matrix;
         }
 
-        pub fn deinit(self: *Self, allocator: std.mem.Allocator) void {
-            allocator.free(self.buffer);
+        pub fn deinit(self: *Self) void {
+            self.allocator.free(self.buffer);
         }
 
         pub fn get(self: *const Self, x: usize, y: usize) T {

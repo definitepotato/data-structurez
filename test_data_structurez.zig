@@ -29,6 +29,7 @@ test "matrix 3x5 from text" {
     const allocator = std.testing.allocator;
 
     var matrix = try DataStructures.Matrix(u8).initFromText(allocator, test_input);
+    defer matrix.deinit();
 
     try std.testing.expectEqual(matrix.height, 3);
     try std.testing.expectEqual(matrix.width, 5);
@@ -43,6 +44,7 @@ test "matrix 3x5 from file" {
     const allocator = std.testing.allocator;
 
     var matrix = try DataStructures.Matrix(u8).initFromFile(allocator, "matrix_input.txt");
+    defer matrix.deinit();
 
     try std.testing.expectEqual(matrix.height, 3);
     try std.testing.expectEqual(matrix.width, 5);
@@ -97,6 +99,8 @@ test "slice iterator" {
     const allocator = std.testing.allocator;
 
     var slice = DataStructures.Slice(u32).init(allocator);
+    defer slice.deinit();
+
     try slice.append(10);
     try slice.append(20);
     try slice.append(30);
