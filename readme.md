@@ -38,14 +38,57 @@ list.print();
 
 ```zig
 const std = @import("std");
-const DataStructures = @import("data-structurez.zig")
+const DataStructures = @import("data_structurez.zig");
 
-const allocator = std.head.page_allocator;
+const input_test =
+    \\MMMSXXMASM
+    \\MSAMXMSMSA
+    \\AMXSXMAAMM
+    \\MSAMASMSMX
+    \\XMASAMXAMM
+    \\XXAMMXXAMA
+    \\SMSMSASXSS
+    \\SAXAMASAAA
+    \\MAMMMXMMMM
+    \\MXMXAXMASX
+;
 
-var matrix = try DataStructures.Matrix(u8).initFromFile(allocator, "matrix_input.txt");
-defer matrix.deinit();
+pub fn main() !void {
+    const allocator = std.heap.page_allocator;
 
-matrix.print();
+    var matrix = try DataStructures.Matrix(u8).initFromText(allocator, input_test);
+    defer matrix.deinit();
+
+    for (0..matrix.height) |y| {
+        for (0..matrix.width) |x| {
+            const loc = matrix.get(x, y);
+            if (loc == 'X') {
+                std.debug.print("X => {d},{d}\n", .{ x, y });
+            }
+        }
+    }
+}
+
+// Output:
+// X => 4,0
+// X => 5,0
+// X => 4,1
+// X => 2,2
+// X => 4,2
+// X => 9,3
+// X => 0,4
+// X => 6,4
+// X => 0,5
+// X => 1,5
+// X => 5,5
+// X => 6,5
+// X => 7,6
+// X => 2,7
+// X => 5,8
+// X => 1,9
+// X => 3,9
+// X => 5,9
+// X => 9,9
 ```
 
 ## Queue
