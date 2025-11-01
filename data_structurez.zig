@@ -11,15 +11,17 @@ pub fn LinkedList(comptime T: type) type {
 
         head: ?*Node = null,
         allocator: std.mem.Allocator,
+        len: usize,
 
         pub fn init(allocator: std.mem.Allocator) Self {
-            return .{ .head = null, .allocator = allocator };
+            return .{ .head = null, .allocator = allocator, .len = 0 };
         }
 
         pub fn prepend(self: *Self, value: T) !void {
             const new_node = try self.allocator.create(Node);
             new_node.* = Node{ .value = value, .next = self.head };
             self.head = new_node;
+            self.len += 1;
         }
 
         pub fn append(self: *Self, value: T) !void {
@@ -28,6 +30,7 @@ pub fn LinkedList(comptime T: type) type {
 
             if (self.head == null) {
                 self.head = new_node;
+                self.len += 1;
                 return;
             }
 
@@ -36,6 +39,7 @@ pub fn LinkedList(comptime T: type) type {
                 current = next_node;
             }
             current.?.next = new_node;
+            self.len += 1;
         }
 
         pub fn insert(self: *Self, after_value: T, value: T) !void {
@@ -45,9 +49,11 @@ pub fn LinkedList(comptime T: type) type {
                     const new_node = try self.allocator.create(Node);
                     new_node.* = Node{ .value = value, .next = node.next };
                     node.next = new_node;
+                    self.len += 1;
                     return;
                 }
                 current = node.next;
+                self.len += 1;
             }
         }
 

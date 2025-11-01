@@ -7,16 +7,28 @@ test "linked list" {
     var list = ds.LinkedList(usize).init(allocator);
     defer list.deinit();
 
-    try list.prepend(10);
-    try list.prepend(20);
+    // prepend()
     try list.prepend(30);
+    try std.testing.expect(list.head.?.*.value == 30);
+    try std.testing.expect(list.len == 1);
 
+    try list.append(40);
     if (list.head) |head| {
         try std.testing.expect(head.*.value == 30);
         if (head.next) |node| {
-            try std.testing.expect(node.*.value == 20);
+            try std.testing.expect(node.*.value == 40);
         }
     }
+    try std.testing.expect(list.len == 2);
+
+    try list.insert(30, 50);
+    if (list.head) |head| {
+        try std.testing.expect(head.*.value == 30);
+        if (head.next) |node| {
+            try std.testing.expect(node.*.value == 50);
+        }
+    }
+    try std.testing.expect(list.len == 3);
 }
 
 test "matrix 3x5 from text" {
