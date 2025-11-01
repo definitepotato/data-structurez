@@ -7,7 +7,6 @@ test "linked list" {
     var list = ds.LinkedList(usize).init(allocator);
     defer list.deinit();
 
-    // prepend()
     try list.prepend(30);
     try std.testing.expect(list.head.?.*.value == 30);
     try std.testing.expect(list.len == 1);
