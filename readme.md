@@ -14,24 +14,26 @@ A tiny library of data structures written in pure Zig. Use for learning and expe
 
 ## How To Use It
 
-Drop the `data-structurez.zig` file in your project and import like `std ds = @import("data-structurez.zig")`
+Drop the `data_structurez.zig` file in your project and import like `std ds = @import("data_structurez.zig")`
 
 ### Linked List
 
 ```zig
 const std = @import("std");
-const ds = @import("data-structurez.zig")
+const ds = @import("data_structurez.zig");
 
-const allocator = std.heap.page_allocator;
+pub fn main() !void {
+    const allocator = std.heap.page_allocator;
 
-var list = ds.LinkedList(usize).init(allocator);
-defer list.deinit();
+    var list = ds.LinkedList(usize).init(allocator);
+    defer list.deinit();
 
-try list.prepend(10);
-try list.prepend(20);
-try list.prepend(30);
+    try list.prepend(10);
+    try list.prepend(20);
+    try list.prepend(30);
 
-list.print();
+    list.print();
+}
 
 // Output:
 // 30 -> 20 -> 10 -> null
@@ -98,59 +100,71 @@ pub fn main() !void {
 
 ```zig
 const std = @import("std");
-const ds = @import("data-structurez.zig")
+const ds = @import("data_structurez.zig");
 
-const allocator = std.heap.page_allocator;
+pub fn main() !void {
+    const allocator = std.heap.page_allocator;
 
-var queue = ds.Queue(u8).init(allocator);
-defer queue.deinit();
+    var queue = ds.Queue(u8).init(allocator);
+    defer queue.deinit();
 
-try queue.enqueue('a');
-try queue.enqueue('b');
+    try queue.enqueue('a');
+    try queue.enqueue('b');
 
-const next = queue.peek().?;
-std.debug.print("{c}\n", .{next});
+    const next = queue.peek().?;
+    std.debug.print("{c}\n", .{next});
+}
+
+// Output:
+// a
 ```
 
 ## Stack
 
 ```zig
 const std = @import("std");
-const ds = @import("data-structurez.zig")
+const ds = @import("data_structurez.zig");
 
-const allocator = std.heap.page_allocator;
+pub fn main() !void {
+    const allocator = std.heap.page_allocator;
 
-var stack = ds.Stack(u8).init(allocator);
-defer stack.deinit();
+    var stack = ds.Stack(u8).init(allocator);
+    defer stack.deinit();
 
-try stack.push('a');
-try stack.push('b');
-_ = stack.pop().?;
-try stack.push('c');
+    try stack.push('a');
+    try stack.push('b');
+    _ = stack.pop().?;
+    try stack.push('c');
 
-std.debug.print("{}\n", .{stack.is_empty()});
+    std.debug.print("{}\n", .{stack.is_empty()});
+}
+
+// Output:
+// false
 ```
 
 ## Slice
 
 ```zig
 const std = @import("std");
-const ds = @import("data-structurez.zig")
+const ds = @import("data_structurez.zig");
 
-const allocator = std.heap.page_allocator;
+pub fn main() !void {
+    const allocator = std.heap.page_allocator;
 
-var slice = ds.Slice(u32).init(allocator);
-try slice.append(10);
-try slice.append(20);
-try slice.append(30);
-try slice.append(40);
-try slice.append(50);
+    var slice = ds.Slice(u32).init(allocator);
+    try slice.append(10);
+    try slice.append(20);
+    try slice.append(30);
+    try slice.append(40);
+    try slice.append(50);
 
-std.debug.print("Len: {d}\n", .{slice.len});
+    std.debug.print("Len: {d}\n", .{slice.len});
 
-var it = slice.iterator();
-while (it.next()) |item| {
-    std.debug.print("{d}\n", .{item});
+    var it = slice.iterator();
+    while (it.next()) |item| {
+        std.debug.print("{d}\n", .{item});
+    }
 }
 
 // Output:
