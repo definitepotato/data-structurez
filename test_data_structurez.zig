@@ -124,6 +124,11 @@ test "slice iterator" {
     while (it.next()) |item| {
         std.debug.assert(item > 0);
     }
+
+    var window = slice.window(3);
+    while (window.next()) |item| {
+        std.debug.print("{any}\n", .{item});
+    }
 }
 
 test "stack usize" {

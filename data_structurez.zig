@@ -285,6 +285,27 @@ pub fn Slice(comptime T: type) type {
             self.len += 1;
         }
 
+        pub fn window(self: *Self, size: usize) SliceWindowIterator {
+            return SliceWindowIterator{ .slice = self, .window_size = size, .window_start = 0 };
+        }
+
+        pub const SliceWindowIterator = struct {
+            slice: *Self,
+            window_size: usize,
+            window_start: usize,
+
+            pub fn next(self: *SliceWindowIterator) ?[]T {
+                const window_end = self.window_start + self.window_size;
+                if (window_end > self.slice.len) {
+                    return null;
+                }
+
+                const window_slice = self.slice.buffer[self.window_start..window_end];
+                self.window_start += 1;
+                return window_slice;
+            }
+        };
+
         pub fn iterator(self: *Self) SliceIterator {
             return SliceIterator{ .slice = self, .index = 0 };
         }
