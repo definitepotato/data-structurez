@@ -127,7 +127,7 @@ test "slice iterator" {
 
     var window = slice.window(3);
     while (window.next()) |item| {
-        std.debug.print("{any}\n", .{item});
+        std.debug.assert(item.len == 3);
     }
 }
 
