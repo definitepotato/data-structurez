@@ -129,6 +129,12 @@ test "slice iterator" {
     while (window.next()) |item| {
         std.debug.assert(item.len == 3);
     }
+
+    const owned_slice = try slice.toOwned();
+    if (owned_slice) |s| {
+        defer allocator.free(s);
+        std.debug.assert(s.len > 0);
+    }
 }
 
 test "stack usize" {
