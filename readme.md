@@ -10,7 +10,7 @@ A tiny library of data structures written in pure Zig. Use for learning and expe
 | Matrix         | `init()` `deinit()` `initFromFile` `initFromText` `get()` `set()` `print()` |
 | Queue          | `init()` `deinit()` `enqueue()` `dequeue()` `peek()` `is_empty()`           |
 | Stack          | `init()` `deinit()` `push()` `pop()` `peek()` `is_empty()` `toOwned()`      |
-| Slice          | `init()` `deinit()` `append()` `iterator()`                                 |
+| Slice          | `init()` `deinit()` `append()` `iterator()` `toOwned()`                     |
 
 ## How To Use It
 
