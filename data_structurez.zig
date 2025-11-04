@@ -321,22 +321,22 @@ pub fn Slice(comptime T: type) type {
 
         /// Returns a sliding window iterator with a width of `size`.
         pub fn window(self: *Self, size: usize) SliceWindowIterator {
-            return SliceWindowIterator{ .slice = self, .window_size = size, .window_start = 0 };
+            return SliceWindowIterator{ .slice_ptr = self, .window_size = size, .window_start = 0 };
         }
 
         pub const SliceWindowIterator = struct {
-            slice: *Self,
+            slice_ptr: *Self,
             window_size: usize,
             window_start: usize,
 
             /// Iterates the backing buffer in a sliding window.
             pub fn next(self: *SliceWindowIterator) ?[]T {
                 const window_end = self.window_start + self.window_size;
-                if (window_end > self.slice.len) {
+                if (window_end > self.slice_ptr.len) {
                     return null;
                 }
 
-                const window_slice = self.slice.buffer[self.window_start..window_end];
+                const window_slice = self.slice_ptr.buffer[self.window_start..window_end];
                 self.window_start += 1;
                 return window_slice;
             }
