@@ -344,20 +344,20 @@ pub fn Slice(comptime T: type) type {
 
         /// Returns an iterator, use `next()` to iterate.
         pub fn iterator(self: *Self) SliceIterator {
-            return SliceIterator{ .slice = self, .index = 0 };
+            return SliceIterator{ .slice_ptr = self, .index = 0 };
         }
 
         pub const SliceIterator = struct {
-            slice: *Self,
+            slice_ptr: *Self,
             index: usize,
 
             /// Iterates the backing buffer item by item.
             pub fn next(self: *SliceIterator) ?T {
-                if (self.index >= self.slice.len) {
+                if (self.index >= self.slice_ptr.len) {
                     return null;
                 }
 
-                const item = self.slice.buffer[self.index];
+                const item = self.slice_ptr.buffer[self.index];
                 self.index += 1;
                 return item;
             }
