@@ -16,6 +16,19 @@ A tiny library of data structures written in pure Zig. Use for learning and expe
 
 Drop the `data_structurez.zig` file in your project and import like `std ds = @import("data_structurez.zig")`
 
+or
+
+In your project folder run `zig fetch --save https://github.com/definitepotato/data-structurez.git` and in your `build.zig` file add:
+
+```zig
+const data_structurez_dep = b.dependency("data_structurez", .{
+    .target = target,
+    .optimize = optimize,
+});
+
+exe.root_module.addImport("data_structurez", data_structurez_dep.module("data_structurez"));
+```
+
 ### Linked List
 
 ```zig
