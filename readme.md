@@ -14,7 +14,7 @@ A tiny library of data structures written in pure Zig. Use for learning and expe
 
 ## How To Use It
 
-Drop the `data_structurez.zig` file in your project and import like `std ds = @import("data_structurez.zig")`
+Drop the `data_structurez.zig` file in your project and import like `const ds = @import("data_structurez.zig")`
 
 or
 
