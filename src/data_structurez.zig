@@ -63,7 +63,7 @@ pub fn LinkedList(comptime T: type) type {
         }
 
         /// Print the LinkedList to the terminal.
-        pub fn print(self: *Self) void {
+        pub fn print(self: Self) void {
             var current = self.head;
             while (current) |node| {
                 std.debug.print("{} -> ", .{node.value});
@@ -181,7 +181,7 @@ pub fn Matrix(comptime T: type) type {
         }
 
         /// Get the value at coord `x`,`y`.
-        pub fn getXY(self: *const Self, x: usize, y: usize) T {
+        pub fn getXY(self: Self, x: usize, y: usize) T {
             return self.buffer[y * self.width + x];
         }
 
@@ -191,7 +191,7 @@ pub fn Matrix(comptime T: type) type {
         }
 
         /// Print the Matrix to the terminal.
-        pub fn print(self: *Self) void {
+        pub fn print(self: Self) void {
             for (0..self.height) |y| {
                 for (0..self.width) |x| {
                     std.debug.print("{c}", .{self.getXY(x, y)});
@@ -263,13 +263,13 @@ pub fn Queue(comptime T: type) type {
         }
 
         /// Peek at the next item in the Queue without fetching it.
-        pub fn peek(self: *Self) ?T {
+        pub fn peek(self: Self) ?T {
             if (self.count == 0) return null;
             return self.buffer[self.front];
         }
 
         /// Returns `true` if the Queue is empty, otherwise `false`.
-        pub fn is_empty(self: *Self) bool {
+        pub fn is_empty(self: Self) bool {
             return self.count == 0;
         }
     };
@@ -451,13 +451,13 @@ pub fn Stack(comptime T: type) type {
         }
 
         /// Peek at the next item in the Stack without fetching it.
-        pub fn peek(self: *Self) ?T {
+        pub fn peek(self: Self) ?T {
             if (self.top == 0) return null;
             return self.buffer[self.top - 1];
         }
 
         /// Returns `true` if the Stack is empty, otherwise `false`.
-        pub fn is_empty(self: *Self) bool {
+        pub fn is_empty(self: Self) bool {
             return self.top == 0;
         }
 
