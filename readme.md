@@ -66,7 +66,7 @@ pub fn main() !void {
 
     for (0..matrix.height) |y| {
         for (0..matrix.width) |x| {
-            const loc = matrix.get(x, y);
+            const loc = matrix.getXY(x, y);
             if (loc == 'X') {
                 std.debug.print("X => {d},{d}\n", .{ x, y });
             }
