@@ -8,7 +8,7 @@ pub fn build(b: *std.Build) void {
 
     var main_tests = b.addTest(.{
         .root_module = b.createModule(.{
-            .root_source_file = b.path("test_data_structurez.zig"),
+            .root_source_file = b.path("src/test_data_structurez.zig"),
             .target = target,
             .optimize = optimize,
         }),
