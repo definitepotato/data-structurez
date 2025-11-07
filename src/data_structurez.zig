@@ -194,7 +194,7 @@ pub fn Matrix(comptime T: type) type {
         pub fn print(self: *Self) void {
             for (0..self.height) |y| {
                 for (0..self.width) |x| {
-                    std.debug.print("{c}", .{self.get(x, y)});
+                    std.debug.print("{c}", .{self.getXY(x, y)});
                 }
                 std.debug.print("\n", .{});
             }
