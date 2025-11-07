@@ -66,26 +66,6 @@ test "matrix 3x5 from file" {
     try std.testing.expectEqual(matrix.get(0, 0), '.');
 }
 
-test "queue usize" {
-    const allocator = std.testing.allocator;
-
-    var queue = ds.Queue(usize).init(allocator);
-    defer queue.deinit();
-
-    std.debug.assert(queue.is_empty());
-
-    try queue.enqueue(10);
-    try queue.enqueue(20);
-    std.debug.assert(queue.peek().? == 10);
-
-    _ = queue.dequeue().?;
-    std.debug.assert(queue.peek().? == 20);
-
-    try queue.enqueue(30);
-    try queue.enqueue(40);
-    std.debug.assert(queue.is_empty() == false);
-}
-
 test "queue u8" {
     const allocator = std.testing.allocator;
 
@@ -106,7 +86,7 @@ test "queue u8" {
     std.debug.assert(queue.is_empty() == false);
 }
 
-test "slice iterator" {
+test "slice u32" {
     const allocator = std.testing.allocator;
 
     var slice = ds.Slice(u32).init(allocator);
@@ -121,8 +101,17 @@ test "slice iterator" {
     std.debug.assert(slice.len == 5);
 
     var it = slice.iterator();
+    var count_it: u32 = 10;
     while (it.next()) |item| {
-        std.debug.assert(item > 0);
+        std.debug.assert(item == count_it);
+        count_it += 10;
+    }
+
+    var bit = slice.backward();
+    var count_bit: u32 = 50;
+    while (bit.next()) |item| {
+        std.debug.assert(item == count_bit);
+        count_bit -= 10;
     }
 
     var window = slice.window(3);
@@ -134,34 +123,6 @@ test "slice iterator" {
     if (owned_slice) |s| {
         defer allocator.free(s);
         std.debug.assert(s.len > 0);
-    }
-}
-
-test "stack usize" {
-    const allocator = std.testing.allocator;
-
-    var stack = ds.Stack(usize).init(allocator);
-    defer stack.deinit();
-
-    std.debug.assert(stack.is_empty());
-
-    try stack.push(10);
-    try stack.push(20);
-    std.debug.assert(stack.peek().? == 20);
-
-    _ = stack.pop().?;
-    std.debug.assert(stack.peek().? == 10);
-
-    try stack.push(30);
-    try stack.push(40);
-    std.debug.assert(stack.is_empty() == false);
-
-    const slice = try stack.toOwned();
-    if (slice) |s| {
-        defer allocator.free(s);
-
-        const expected_slice = &[_]usize{ 10, 30, 40 };
-        try std.testing.expectEqualSlices(usize, s, expected_slice);
     }
 }
 

@@ -343,6 +343,30 @@ pub fn Slice(comptime T: type) type {
         };
 
         /// Returns an iterator, use `next()` to iterate.
+        pub fn backward(self: *Self) BackwardSliceIterator {
+            return BackwardSliceIterator{ .slice_ptr = self, .index = self.len - 1 };
+        }
+
+        pub const BackwardSliceIterator = struct {
+            slice_ptr: *Self,
+            index: usize,
+            flushed: bool = false,
+
+            /// Iterates the backing buffer backwards item by item.
+            pub fn next(self: *BackwardSliceIterator) ?T {
+                if (self.index == 0) {
+                    if (self.flushed) return null;
+                    self.flushed = true;
+                    return self.slice_ptr.buffer[self.index];
+                }
+
+                const item = self.slice_ptr.buffer[self.index];
+                self.index -= 1;
+                return item;
+            }
+        };
+
+        /// Returns an iterator, use `next()` to iterate.
         pub fn iterator(self: *Self) SliceIterator {
             return SliceIterator{ .slice_ptr = self, .index = 0 };
         }
