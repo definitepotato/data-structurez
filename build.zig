@@ -4,7 +4,7 @@ pub fn build(b: *std.Build) void {
     const target = b.standardTargetOptions(.{});
     const optimize = b.standardOptimizeOption(.{});
 
-    _ = b.addModule("data_structurez", .{ .root_source_file = b.path("data_structurez") });
+    _ = b.addModule("data_structurez", .{ .root_source_file = b.path("src/data_structurez.zig") });
 
     var main_tests = b.addTest(.{
         .root_module = b.createModule(.{
