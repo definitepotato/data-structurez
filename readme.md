@@ -7,7 +7,7 @@ A tiny library of data structures written in pure Zig. Use for learning and expe
 | Data Structure | Methods                                                                         |
 | -------------- | ------------------------------------------------------------------------------- |
 | Linked List    | `init()` `deinit()` `prepend()` `insert()` `print()`                            |
-| Matrix         | `init()` `deinit()` `initFromFile` `initFromText` `get()` `set()` `print()`     |
+| Matrix         | `init()` `deinit()` `initFromFile` `initFromText` `getXY()` `setXY()` `print()` |
 | Queue          | `init()` `deinit()` `enqueue()` `dequeue()` `peek()` `is_empty()`               |
 | Stack          | `init()` `deinit()` `push()` `pop()` `peek()` `is_empty()` `toOwned()`          |
 | Slice          | `init()` `deinit()` `append()` `iterator()` `window()` `backward()` `toOwned()` |
