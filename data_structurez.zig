@@ -138,7 +138,7 @@ pub fn Matrix(comptime T: type) type {
             var y: usize = 0;
             while (lines.next()) |line| : (y += 1) {
                 for (line, 0..) |ch, x| {
-                    matrix.set(x, y, ch);
+                    matrix.setXY(x, y, ch);
                 }
             }
 
@@ -168,7 +168,7 @@ pub fn Matrix(comptime T: type) type {
             var y: usize = 0;
             while (lines.next()) |line| : (y += 1) {
                 for (line, 0..) |ch, x| {
-                    matrix.set(x, y, ch);
+                    matrix.setXY(x, y, ch);
                 }
             }
 
@@ -181,12 +181,12 @@ pub fn Matrix(comptime T: type) type {
         }
 
         /// Get the value at coord `x`,`y`.
-        pub fn get(self: *const Self, x: usize, y: usize) T {
+        pub fn getXY(self: *const Self, x: usize, y: usize) T {
             return self.buffer[y * self.width + x];
         }
 
         /// Set `value` at coord `x`,`y`.
-        pub fn set(self: *Self, x: usize, y: usize, value: T) void {
+        pub fn setXY(self: *Self, x: usize, y: usize, value: T) void {
             self.buffer[y * self.width + x] = value;
         }
 

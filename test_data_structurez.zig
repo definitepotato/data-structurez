@@ -45,10 +45,10 @@ test "matrix 3x5 from text" {
     try std.testing.expectEqual(matrix.height, 3);
     try std.testing.expectEqual(matrix.width, 5);
     try std.testing.expect(matrix.buffer.len > 0);
-    try std.testing.expectEqual(matrix.get(0, 0), '#');
+    try std.testing.expectEqual(matrix.getXY(0, 0), '#');
 
-    matrix.set(0, 0, '.');
-    try std.testing.expectEqual(matrix.get(0, 0), '.');
+    matrix.setXY(0, 0, '.');
+    try std.testing.expectEqual(matrix.getXY(0, 0), '.');
 }
 
 test "matrix 3x5 from file" {
@@ -60,10 +60,10 @@ test "matrix 3x5 from file" {
     try std.testing.expectEqual(matrix.height, 3);
     try std.testing.expectEqual(matrix.width, 5);
     try std.testing.expect(matrix.buffer.len > 0);
-    try std.testing.expectEqual(matrix.get(0, 0), '#');
+    try std.testing.expectEqual(matrix.getXY(0, 0), '#');
 
-    matrix.set(0, 0, '.');
-    try std.testing.expectEqual(matrix.get(0, 0), '.');
+    matrix.setXY(0, 0, '.');
+    try std.testing.expectEqual(matrix.getXY(0, 0), '.');
 }
 
 test "queue u8" {
