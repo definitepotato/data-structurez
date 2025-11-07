@@ -29,6 +29,8 @@ const data_structurez_dep = b.dependency("data_structurez", .{
 exe.root_module.addImport("data_structurez", data_structurez_dep.module("data_structurez"));
 ```
 
+Then in your source file import it using `const ds = @import("data_structurez");`
+
 ### Linked List
 
 ```zig
