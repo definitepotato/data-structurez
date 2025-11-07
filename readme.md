@@ -31,6 +31,8 @@ exe.root_module.addImport("data_structurez", data_structurez_dep.module("data_st
 
 Then in your source file import it using `const ds = @import("data_structurez");`
 
+## Examples
+
 ### Linked List
 
 ```zig
