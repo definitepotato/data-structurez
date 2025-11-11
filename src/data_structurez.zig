@@ -63,13 +63,17 @@ pub fn LinkedList(comptime T: type) type {
         }
 
         /// Print the LinkedList to the terminal.
-        pub fn print(self: Self) void {
+        pub fn print(self: Self) !void {
+            // Bypass buffering, less efficient but this is potato code.
+            var stdout_writer = std.fs.File.stdout().writer(&.{});
+            const stdout = &stdout_writer.interface;
+
             var current = self.head;
             while (current) |node| {
-                std.debug.print("{} -> ", .{node.value});
+                try stdout.print("{} -> ", .{node.value});
                 current = node.next;
             }
-            std.debug.print("null\n", .{});
+            try stdout.print("null\n", .{});
         }
 
         /// Release the backing buffer.
@@ -191,12 +195,16 @@ pub fn Matrix(comptime T: type) type {
         }
 
         /// Print the Matrix to the terminal.
-        pub fn print(self: Self) void {
+        pub fn print(self: Self) !void {
+            // Bypass buffering, less efficient but this is potato code.
+            var stdout_writer = std.fs.File.stdout().writer(&.{});
+            const stdout = &stdout_writer.interface;
+
             for (0..self.height) |y| {
                 for (0..self.width) |x| {
-                    std.debug.print("{c}", .{self.getXY(x, y)});
+                    try stdout.print("{c}", .{self.getXY(x, y)});
                 }
-                std.debug.print("\n", .{});
+                try stdout.print("\n", .{});
             }
         }
     };
@@ -400,6 +408,18 @@ pub fn Slice(comptime T: type) type {
             }
 
             return null;
+        }
+
+        pub fn print(self: Self) !void {
+            // Bypass buffering, less efficient but this is potato code.
+            var stdout_writer = std.fs.File.stdout().writer(&.{});
+            const stdout = &stdout_writer.interface;
+            var cur: usize = 0;
+
+            while (cur < self.len) : (cur += 1) {
+                try stdout.print("[{}] ", .{self.buffer[cur]});
+            }
+            try stdout.print("\n", .{});
         }
     };
 }
